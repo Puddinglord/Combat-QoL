@@ -1,4 +1,6 @@
 {
+  "COMBAT_QOL.currentGameSystem": "Current Game System",
+  "COMBAT_QOL.currentGameSystemHint": "Choose the game system you're currently playing with.",
   "COMBAT_QOL.forceTargetSelection": "Must Select + Target",
   "COMBAT_QOL.forceTargetSelectionHint": "A lot of automation relies on both the players and the DM/GM targeting the token they wish to attack/do something to. Enabling this option makes sure both the attacker is selected and the target is targeted. If either of these are false, no roll will be made and an error message will appear telling you what you need to do. Note: This only applies to attack rolls currently.",
   "COMBAT_QOL.autoRemoveTarget": "Remove Targets At End of Turn",
@@ -10,5 +12,7 @@
   "COMBAT_QOL.autoOpenSheetPlayer": "Open Player Sheet At Start of Turn",
   "COMBAT_QOL.autoOpenSheetPlayerHint": "Will not work without 'Select Token At Start of Turn' enabled! Auto open the attached sheet of the Player when it's their turn in the combat tracker.",
   "COMBAT_QOL.autoCloseSheet": "Close Previous Sheet",
-  "COMBAT_QOL.autoCloseSheetHint": "Auto close the previous tokens sheet when the next turn starts."
+  "COMBAT_QOL.autoCloseSheetHint": "Auto close the previous tokens sheet when the next turn starts.",
+  "COMBAT_QOL.autoMinimizeSheet": "Minimize Previous Sheet",
+  "COMBAT_QOL.autoMinimizeSheetHint": "Minimizes the previous sheet instead of closing it. Useful if you want to keep the sheet 'open' and out of the way. Closing sheet setting takes pecedence over this one so make sure that's disabled if you want to use this setting."
 }

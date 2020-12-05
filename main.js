@@ -1,7 +1,19 @@
 import { CombatQoL } from './src/combant-qol.js';
 
 Hooks.once('init', () => {
-  console.log('Registering game settings for Combat QoL...');
+  game.settings.register('combat-qol', 'currentGameSystem', {
+    name: 'COMBAT_QOL.currentGameSystem',
+    hint: 'COMBAT_QOL.currentGameSystemHint',
+    scope: 'world',
+    config: true,
+    default: 'pf2e',
+    type: String,
+    choices: {
+      pf2e: 'COMBAT_QOL.pf2e',
+      dnd5e: 'COMBAT_QOL.dnd5e',
+    },
+    onChange: () => location.reload(),
+  });
 
   game.settings.register('combat-qol', 'forceTargetSelection', {
     name: 'COMBAT_QOL.forceTargetSelection',
@@ -53,9 +65,22 @@ Hooks.once('init', () => {
     onChange: () => location.reload(),
   });
 
-  game.settings.register('combat-qol', 'autoCloseSheet', {
-    name: 'COMBAT_QOL.autoCloseSheet',
-    hint: 'COMBAT_QOL.autoCloseSheetHint',
+  // If we are not in the pf2e system, disable the option to close sheets for now
+  if (game.settings.get('combat-qol', 'currentGameSystem') === 'pf2e') {
+    game.settings.register('combat-qol', 'autoCloseSheet', {
+      name: 'COMBAT_QOL.autoCloseSheet',
+      hint: 'COMBAT_QOL.autoCloseSheetHint',
+      scope: 'user',
+      config: true,
+      default: true,
+      type: Boolean,
+      onChange: () => location.reload(),
+    });
+  }
+
+  game.settings.register('combat-qol', 'autoMinimizeSheet', {
+    name: 'COMBAT_QOL.autoMinimizeSheet',
+    hint: 'COMBAT_QOL.autoMinimizeSheetHint',
     scope: 'user',
     config: true,
     default: true,
@@ -63,5 +88,6 @@ Hooks.once('init', () => {
     onChange: () => location.reload(),
   });
 
-  const combatQoL = new CombatQoL().listenForHooks();
+  const combatQoL = new CombatQoL();
+  combatQoL.listenForHooks();
 });

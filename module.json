@@ -1,8 +1,8 @@
 {
   "name": "combat-qol",
   "title": "Combat QoL",
-  "description": "Makes running combat easier and more automated letting you focus on telling your story instead of the tokens.",
-  "version": "0.0.1",
+  "description": "Makes running combat easier and more automated letting you focus on telling your story instead of clicking tokens.",
+  "version": "1.0.0",
   "minimumCoreVersion": "0.7.5",
   "compatibleCoreVersion": "0.7.8",
   "author": "Dakotah Cote (Puddinglord)",

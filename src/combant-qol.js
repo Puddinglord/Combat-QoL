@@ -5,10 +5,15 @@ export class CombatQoL {
     this.autoSelectOnTurn = game.settings.get('combat-qol', 'autoSelectOnTurn');
     this.autoOpenSheetNPC = game.settings.get('combat-qol', 'autoOpenSheetNPC');
     this.autoOpenSheetPlayer = game.settings.get('combat-qol', 'autoOpenSheetPlayer');
-    this.autoCloseSheet = game.settings.get('combat-qol', 'autoCloseSheet');
+    this.autoMinimizeSheet = game.settings.get('combat-qol', 'autoMinimizeSheet');
+
+    this.autoCloseSheet = null;
     this.autoOpenSheet = null;
 
+    this.skipBeginningOfCombat = true;
+
     this.getParentSheetSetting();
+    this.getCloseSheetSettings();
   }
 
   listenForHooks() {
@@ -28,6 +33,8 @@ export class CombatQoL {
           // Do they want the previous sheet to close?
           if (this.autoCloseSheet) {
             this.closeSheet(args);
+          } else if (this.autoMinimizeSheet) {
+            this.minimizeSheet(args);
           }
 
           // If you want to open NPC sheets automatically
@@ -41,22 +48,32 @@ export class CombatQoL {
           }
         }
       }
+
+      // This is needed so the first 5e sheet will minimizable!
+      this.skipBeginningOfCombat = false;
     });
 
     Hooks.on('preCreateChatMessage', (data) => {
       if (this.forceTargetSelection) {
-        if (data.flags.pf2e.context.type !== 'attack-roll') {
-          return true;
-        }
+        try {
+          if (data.content.includes('Attack') || data.flavor.includes('Attack')) {
+            // D&D 5e
+          } else {
+            return true;
+          }
+        } catch (error) {}
+
+        try {
+          if (data.flags.pf2e.context.type !== 'attack-roll') {
+            // PF2e
+            return true;
+          }
+        } catch (error) {}
 
         if (!this.isSelectedAndTargeted()) {
           return false;
         }
       }
-    });
-
-    Hooks.on('onChange', () => {
-      console.log('Change was made!');
     });
   }
 
@@ -65,6 +82,12 @@ export class CombatQoL {
       this.autoOpenSheet = true;
     } else {
       this.autoOpenSheet = false;
+    }
+  }
+
+  getCloseSheetSettings() {
+    if (game.settings.get('combat-qol', 'currentGameSystem') === 'pf2e') {
+      this.autoCloseSheet = game.settings.get('combat-qol', 'autoCloseSheet');
     }
   }
 
@@ -116,12 +139,26 @@ export class CombatQoL {
   }
 
   // TODO: Make this work in the next version.
-  minimizeSheet(args) {}
+  minimizeSheet(args) {
+    if (this.skipBeginningOfCombat) {
+      this.skipBeginningOfCombat = true;
+      return;
+    }
+
+    const previousCombatant = this.getPreviousCombatant(args);
+
+    previousCombatant.actor.sheet.minimize();
+  }
 
   // TODO: Make this work in the next version.
   bringSheetToFront() {}
 
   closeSheet(args) {
+    if (this.skipBeginningOfCombat) {
+      this.skipBeginningOfCombat = true;
+      return;
+    }
+
     const previousCombatant = this.getPreviousCombatant(args);
 
     previousCombatant.actor.sheet.close();
@@ -131,7 +168,6 @@ export class CombatQoL {
     let playerToken = canvas.tokens.controlled[0];
 
     if (!playerToken) {
-      console.log('No token selected!');
       ui.notifications.error('You have not selected your token. Please select your token using left-click!');
 
       return false;
