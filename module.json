@@ -1,0 +1,22 @@
+{
+	"name": "combat-qol",
+	"title": "Combat QoL",
+	"description": "Makes running combat easier and more automated letting you focus on telling your story instead of the tokens.",
+	"version": "0.0.1",
+	"minimumCoreVersion": "0.7.5",
+	"compatibleCoreVersion": "0.7.8",
+	"author": "Dakotah Cote (Puddinglord)",
+	"scripts": ["main.js"],
+	"url": "https://github.com/Puddinglord/combat-qol",
+	"manifest": "https://github.com/Puddinglord/combat-qol/raw/master/module.json",
+	"download": "",
+	"languages": [{
+		"lang": "en",
+		"name": "English",
+		"path": "lang/en.json"
+	}, {
+		"lang": "es",
+		"name": "Español",
+		"path": "lang/es.json"
+	}]
+}
