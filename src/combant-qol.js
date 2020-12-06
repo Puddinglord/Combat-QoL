@@ -64,15 +64,15 @@ export class CombatQoL {
         } catch (error) {}
 
         try {
-          if (data.flags.pf2e.context.type !== 'attack-roll') {
+          if (data.flags.pf2e.context.type.includes('attack')) {
             // PF2e
+            if (!this.isSelectedAndTargeted()) {
+              return false;
+            }
+          } else {
             return true;
           }
         } catch (error) {}
-
-        if (!this.isSelectedAndTargeted()) {
-          return false;
-        }
       }
     });
   }
