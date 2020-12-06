@@ -60,7 +60,7 @@ Hooks.once('init', () => {
     hint: 'COMBAT_QOL.autoOpenSheetPlayerHint',
     scope: 'user',
     config: true,
-    default: true,
+    default: false,
     type: Boolean,
     onChange: () => location.reload(),
   });
@@ -72,7 +72,7 @@ Hooks.once('init', () => {
       hint: 'COMBAT_QOL.autoCloseSheetHint',
       scope: 'user',
       config: true,
-      default: true,
+      default: false,
       type: Boolean,
       onChange: () => location.reload(),
     });
@@ -83,7 +83,7 @@ Hooks.once('init', () => {
     hint: 'COMBAT_QOL.autoMinimizeSheetHint',
     scope: 'user',
     config: true,
-    default: true,
+    default: false,
     type: Boolean,
     onChange: () => location.reload(),
   });
