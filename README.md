@@ -2,8 +2,6 @@
 
 ![GitHub all releases](https://img.shields.io/github/downloads/Puddinglord/combat-qol/total?style=for-the-badge&color=green)
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Puddinglord/combat-qol/CodeQL/main?style=for-the-badge)
-![GitHub](https://img.shields.io/github/license/Puddinglord/combat-qol?style=for-the-badge)
-
 
 Makes running combat easier and more automated letting you focus on telling your story instead of the tokens.
 
